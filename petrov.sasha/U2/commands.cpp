@@ -4,6 +4,35 @@
 
 namespace
 {
+  void sortMeetings(petrov::Meeting* data, std::size_t size)
+  {
+    for (std::size_t i = 0; i < size; ++i)
+    {
+      for (std::size_t j = 0; j + 1 < size; ++j)
+      {
+        bool needSwap = false;
+
+        if (data[j].first > data[j + 1].first)
+        {
+          needSwap = true;
+        }
+        else if (data[j].first == data[j + 1].first)
+        {
+          if (data[j].time > data[j + 1].time)
+          {
+            needSwap = true;
+          }
+        }
+        if (needSwap)
+        {
+          petrov::Meeting tmp = data[j];
+          data[j] = data[j + 1];
+          data[j + 1] = tmp;
+        }
+      }
+    }
+  }
+
   bool findPersonIndex(const petrov::DataBase& db, std::size_t id, std::size_t& index)
   {
     for (std::size_t i = 0; i < db.persons.size; ++i)
