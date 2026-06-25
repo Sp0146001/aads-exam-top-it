@@ -3,4 +3,5 @@
 int main()
 {
   std::cout << "studilova.ksenia\n";
+  return 0;
 }
