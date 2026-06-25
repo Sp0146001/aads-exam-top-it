@@ -1,6 +1,7 @@
 #include "domain.hpp"
 #include "input_args.hpp"
 #include "io.hpp"
+#include "commands.hpp"
 
 #include <iostream>
 
@@ -36,6 +37,7 @@ int main(int argc, char * argv[])
       petrov::destroyDataBase(db);
       return result;
     }
+    petrov::commandLoop(db);
     petrov::destroyDataBase(db);
     return 0;
   }
