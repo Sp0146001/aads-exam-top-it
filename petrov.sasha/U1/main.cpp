@@ -89,12 +89,22 @@ int main(int argc, char* argv[])
 
     petrov::destroyPersonArray(persons);
 
-    std::cerr << successCount << " " << ignoredCount << "\n";
+    std::cerr << successCount << " " << ignoredCount << '\n';
     return 0;
   }
-  catch (...)
+  catch (const std::bad_alloc&)
   {
-    std::cerr << "Another error\n";
+    std::cerr << "Bad Allocation\n";
+    return 2;
+  }
+  catch (const std::runtime_error& )
+  {
+    std::cerr << "Runtime Error\n";
+    return 2;
+  }
+  catch (const std::exception& )
+  {
+    std::cerr << "Exception\n";
     return 2;
   }
 }
