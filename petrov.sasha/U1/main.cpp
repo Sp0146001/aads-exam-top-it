@@ -130,7 +130,6 @@ int main(int argc, char* argv[])
     if (successCount != 0 || ignoredCount != 0)
     {
       std::cerr << successCount << " " << ignoredCount << '\n';
-      std::cout << '\n';
     }
     return 0;
   }
