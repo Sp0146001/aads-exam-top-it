@@ -136,4 +136,12 @@ namespace petrov
       throw std::runtime_error("Input stream error");
     }
   }
+
+  void writePersons(std::ostream& outStream, const personArr* persons)
+  {
+    for (size_t i = 0; i < persons->size; ++i)
+    {
+      outStream << persons->data[i].id << " " << persons->data[i].info << "\n";
+    }
+  }
 }
