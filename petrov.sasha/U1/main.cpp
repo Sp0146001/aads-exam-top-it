@@ -130,10 +130,7 @@ int main(int argc, char* argv[])
     }
 
     petrov::destroyPersonArray(persons);
-    if (successCount != 0 || ignoredCount != 0)
-    {
-      std::cerr << successCount << " " << ignoredCount << '\n';
-    }
+    std::cerr << successCount << " " << ignoredCount << '\n';
     return 0;
   }
   catch (const std::bad_alloc&)
