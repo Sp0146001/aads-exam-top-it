@@ -151,10 +151,6 @@ namespace petrov
         ++ignoredCount;
       }
     }
-    if (inStream.bad())
-    {
-      return;
-    }
   }
 
   void writePersons(std::ostream& outStream, const personArr* persons)

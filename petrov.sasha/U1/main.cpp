@@ -59,7 +59,6 @@ int main(int argc, char* argv[])
     std::string outFilename = "";
     if (!parseArgs(argc, argv, inFilename, outFilename))
     {
-      std::cerr << "Invalid command line arguments\n";
       return 1;
     }
 
