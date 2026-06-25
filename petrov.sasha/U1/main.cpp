@@ -15,6 +15,10 @@ namespace
 {
   bool parseArgs(int argc, char* argv[], std::string& inFile, std::string& outFile)
   {
+    if (argc > 3)
+    {
+      return false;
+    }
     bool hasIn = false;
     bool hasOut = false;
     for (int i = 1; i < argc; ++i)
@@ -122,8 +126,10 @@ int main(int argc, char* argv[])
     }
 
     petrov::destroyPersonArray(persons);
-
-    std::cerr << successCount << " " << ignoredCount << '\n';
+    if (successCount != 0 || ignoredCount != 0)
+    {
+      std::cerr << successCount << " " << ignoredCount << '\n';
+    }
     return 0;
   }
   catch (const std::bad_alloc&)

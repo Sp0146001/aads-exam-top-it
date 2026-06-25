@@ -153,7 +153,7 @@ namespace petrov
     }
     if (inStream.bad())
     {
-      throw std::runtime_error("Input stream error");
+      return;
     }
   }
 
