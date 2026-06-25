@@ -25,4 +25,13 @@ namespace petrov
     }
     return array;
   }
+
+  void destroyPersonArray(personArr* array)
+  {
+    if (array != nullptr)
+    {
+      delete[] array->data;
+      delete array;
+    }
+  }
 }

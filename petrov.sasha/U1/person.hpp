@@ -20,6 +20,7 @@ namespace petrov
   };
 
   personArr* createPersonArray(size_t capacity);
+  void destroyPersonArray(personArr* array);
 }
 
 #endif
