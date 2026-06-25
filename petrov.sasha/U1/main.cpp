@@ -15,7 +15,54 @@ namespace petrov
 
 int main(int argc, char* argv[])
 {
-  
+  try
+  {
+    std::string inFilename = "";
+    std::string outFilename = "";
+    if (!petrov::parseArgs(argc, argv, inFilename, outFilename))
+    {
+      std::cerr << "Invalid command line arguments\n";
+      return 1;
+    }
+
+    std::istream* inStream = &std::cin;
+    std::ifstream inFile;
+    if (!inFilename.empty())
+    {
+      inFile.open(inFilename);
+      if (!inFile.is_open())
+      {
+        std::cerr << "Cannot open input file\n";
+        return 2;
+      }
+      inStream = &inFile;
+    }
+
+    petrov::personArr* persons = nullptr;
+    size_t successCount = 0;
+    size_t ignoredCount = 0;
+
+    try
+    {
+      persons = petrov::createPersonArray(petrov::INITIAL_CAPACITY);
+      petrov::readPersons(*inStream, persons, successCount, ignoredCount);
+    }
+    catch (...)
+    {
+      petrov::destroyPersonArray(persons);
+      throw;
+    }
+
+    if (!inFilename.empty())
+    {
+      inFile.close();
+    }
+  }
+  catch (...)
+  {
+    std::cerr << "Another error\n";
+    return 2;
+  }
 }
 
 static bool petrov::parseArgs(int argc, char* argv[], std::string& inFile, std::string& outFile)

@@ -141,7 +141,7 @@ namespace petrov
   {
     for (size_t i = 0; i < persons->size; ++i)
     {
-      outStream << persons->data[i].id << " " << persons->data[i].info << "\n";
+      outStream << persons->data[i].id << ' ' << persons->data[i].info << '\n';
     }
   }
 }
