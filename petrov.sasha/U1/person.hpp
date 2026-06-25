@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstddef>
+#include <iostream>
 
 namespace petrov
 {
@@ -24,6 +25,8 @@ namespace petrov
   void pushPerson(personArr* array, const Person& person);
   bool isDuplicate(const personArr* array, const size_t id);
   bool parseLine(const std::string& line, Person& person);
+  void readPersons(std::istream& inStream, personArr* persons, size_t& successCount, size_t& ignoredCount);
+  void writePersons(std::ostream& outStream, const personArr* persons);
 }
 
 #endif

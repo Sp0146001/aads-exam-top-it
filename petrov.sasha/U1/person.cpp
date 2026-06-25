@@ -2,7 +2,7 @@
 
 #include <new>
 #include <cctype>
-
+#include <stdexcept>
 namespace petrov
 {
   const size_t CAP_FACTOR = 2;
@@ -106,5 +106,34 @@ namespace petrov
     person.id = id;
     person.info = line.substr(pos);
     return true;
+  }
+
+  void readPersons(std::istream& inStream, personArr* persons, size_t& successCount, size_t& ignoredCount)
+  {
+    std::string line = "";
+    while (std::getline(inStream, line))
+    {
+      Person currentPerson = {};
+      if (parseLine(line, currentPerson))
+      {
+        if (isDuplicate(persons, currentPerson.id))
+        {
+          ++ignoredCount;
+        }
+        else
+        {
+          pushPerson(persons, currentPerson);
+          ++successCount;
+        }
+      }
+      else
+      {
+        ++ignoredCount;
+      }
+    }
+    if (inStream.bad())
+    {
+      throw std::runtime_error("Input stream error");
+    }
   }
 }
