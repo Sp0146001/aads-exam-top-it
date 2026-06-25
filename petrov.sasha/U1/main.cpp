@@ -55,15 +55,11 @@ int main(int argc, char* argv[])
 {
   try
   {
-    if (argc > 3)
-    {
-      std::cerr << "many args\n";
-      return 0;
-    }
     std::string inFilename = "";
     std::string outFilename = "";
     if (!parseArgs(argc, argv, inFilename, outFilename))
     {
+      std::cerr << "Invalid command line arguments\n";
       return 1;
     }
 
@@ -130,7 +126,12 @@ int main(int argc, char* argv[])
     }
 
     petrov::destroyPersonArray(persons);
-    std::cerr << successCount << " " << ignoredCount << '\n';
+    if (successCount != 0 || ignoredCount != 0)
+    {
+      std::cerr << successCount << " " << ignoredCount << '\n';
+    } else {
+      std::cerr << '\n';
+    }
     return 0;
   }
   catch (const std::bad_alloc&)
