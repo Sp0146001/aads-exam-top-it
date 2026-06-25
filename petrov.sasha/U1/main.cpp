@@ -9,8 +9,42 @@
 namespace petrov
 {
   const size_t INITIAL_CAPACITY = 16;
-  static bool parseArgs(int argc, char* argv[], std::string& inFile, std::string& outFile);
+}
 
+namespace
+{
+  bool parseArgs(int argc, char* argv[], std::string& inFile, std::string& outFile)
+  {
+    bool hasIn = false;
+    bool hasOut = false;
+    for (int i = 1; i < argc; ++i)
+    {
+      std::string arg = argv[i];
+      if (arg.find("in:") == 0)
+      {
+        if (hasIn)
+        {
+          return false;
+        }
+        hasIn = true;
+        inFile = arg.substr(3);
+      }
+      else if (arg.find("out:") == 0)
+      {
+        if (hasOut)
+        {
+          return false;
+        }
+        hasOut = true;
+        outFile = arg.substr(4);
+      }
+      else
+      {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 int main(int argc, char* argv[])
@@ -19,7 +53,7 @@ int main(int argc, char* argv[])
   {
     std::string inFilename = "";
     std::string outFilename = "";
-    if (!petrov::parseArgs(argc, argv, inFilename, outFilename))
+    if (!parseArgs(argc, argv, inFilename, outFilename))
     {
       std::cerr << "Invalid command line arguments\n";
       return 1;
@@ -97,48 +131,14 @@ int main(int argc, char* argv[])
     std::cerr << "Bad Allocation\n";
     return 2;
   }
-  catch (const std::runtime_error& )
+  catch (const std::runtime_error&)
   {
     std::cerr << "Runtime Error\n";
     return 2;
   }
-  catch (const std::exception& )
+  catch (const std::exception&)
   {
     std::cerr << "Exception\n";
     return 2;
   }
 }
-
-static bool petrov::parseArgs(int argc, char* argv[], std::string& inFile, std::string& outFile)
-{
-  bool hasIn = false;
-  bool hasOut = false;
-  for (int i = 1; i < argc; ++i)
-  {
-    std::string arg = argv[i];
-    if (arg.substr(0, 3) == "in:")
-    {
-      if (hasIn)
-      {
-        return false;
-      }
-      hasIn = true;
-      inFile = arg.substr(3);
-    }
-    else if (arg.substr(0, 4) == "out:")
-    {
-      if (hasOut)
-      {
-        return false;
-      }
-      hasOut = true;
-      outFile = arg.substr(4);
-    }
-    else
-    {
-      return false;
-    }
-  }
-  return true;
-}
-
